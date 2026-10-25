@@ -27,7 +27,10 @@ Results are from the **player’s perspective**. `determine_winner(player, compu
 
 ### Agreed plan
 
-Discuss the plan with your local coding agent before implementation. Once you agree, ask it to replace this paragraph with the short plan, preserving the expected results above. Keep the agreement in this file and continue in the same chat.
+- Keep the supplied server/interface. Implement equal moves as tie, the three winning pairs as win, and the remaining valid pairs as lose in game.py. The server already rejects invalid or missing moves.
+- Add all nine literal outcomes as deterministic unit cases in tests/test_game.py. Include a real POST with player Rock and computer Paper: it must show both choices and Computer wins. Reuse the supplied negative request cases.
+- In tests/e2e/test_round.py, fix only the computer choice to Scissors. Play Rock for a win, then Paper for a loss in the same browser journey using the real rule function and supplied live_server/page fixtures.
+- Run the full check.py and review the diff before browser review. Keep scoring, styling, dependencies, and shared checks unchanged.
 
 ### Checks
 
@@ -44,6 +47,6 @@ Use `unit`, `integration`, and `e2e` pytest markers. Run `.venv/bin/python check
 
 ### Work record
 
-- Issue: add your own issue URL.
-- Implementation: **Not implemented.** The shell is supplied; `game.py` is unfinished.
-- Checks: **Rules not verified.** Supplied request/browser tests cover the shell only. After implementation, record actual full-check results and your browser observations here; put detailed results in the PR. Passing formatting and analysis alone is not evidence of correct rules.
+- Issue: [RPS-001: Play a round](https://github.com/kaw393939/rps-onboarding-trial-1025/issues/1).
+- Implementation: [game.py](game.py) implements one round. [Rule/request tests](tests/test_game.py) cover the nine literal outcomes and a real Rock/Paper loss; [browser tests](tests/e2e/test_round.py) cover a real win and replay. Existing negative request cases remain in [shell tests](tests/test_shell.py).
+- Checks: `.venv/bin/python check.py` passed Black, Pylint, 22 non-browser cases and 2 Chromium cases. Computer Use browser review observed Rock/Rock tie, Paper/Rock win, keyboard Tab/Enter Rock/Scissors win, and Scissors/Rock loss with replay. These are agent-enacted observations, not a human student review. No desktop-app interaction was tested.
